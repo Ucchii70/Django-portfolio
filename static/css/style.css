@@ -1,0 +1,197 @@
+/* すべての要素に対して、マージンとパディングを0, これにより、要素間の余白や内側の余白がなくなる
+   box-sizing=要素の全体の幅と高さをどのように計算するのかを指定可能にする */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* background:背景色
+     display:フレックスボックスを使って、子要素を縦方向に配置
+     min-height:要素の最小高 */
+  body {
+    background: rgb(147, 147, 147);
+    display: flex;
+    flex-flow: column;
+    min-height: 100vh;
+    font-family: "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    Meiryo,
+    sans-serif;
+  }
+  
+  /* flex:フレックスアイテムをフレックスコンテナーの領域に収めるために、どのように伸長・収縮させるかを指定 */
+  main {
+    flex: 1;
+  }
+  
+  /* index
+     flex-direction:主軸の方向や向き（通常または逆方向）を定義することにより、フレックスコンテナー内でフレックスアイテムを配置する方法を設定 
+     important:重要
+     ナビゲーションメニューバーを横並びに */
+  .navbar-nav {
+    flex-direction: row !important;
+  }
+  
+  /* ナビゲーションリンクの色を設定
+     color:色を指定 */
+  .nav-color {
+    color: rgb(255, 255, 255);
+  }
+  
+  .nav-color {
+    display: inline-block;
+    color:#ffffff;
+    font-size:110%;
+    text-decoration:none;
+    transition: .3s;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  .nav-color:hover{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* ナビゲーションメニューにマウスを当てると下線が表示
+    　content:擬似要素を適用
+      display:要素をブロックボックスとインラインボックスのどちらとして扱うか
+      height:コンテンツ領域の高さ
+      background:背景色
+      margin-top:要素の上側のマージン領域を設定
+      opacity:要素の不透明度を設定
+      transform:YはY軸, 与えられた要素を回転、拡大縮小、傾斜、移動する→今回は要素を上方向に指定したピクセル数だけ移動させる, -で下方向
+      要素をアニメーションさせたり、位置を微調整したりすることができる
+      transition:要素のスタイルが変化したとき（例えば、マウスホバー時）、その変化が0.3秒かけて滑らかに行われるようになる　*/
+  .nav-color:after {
+    content: "";
+    display: block;
+    height: 2px;
+    background: #000000;
+    margin-top: 6px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .nav-color:hover:after {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  
+  /* <img> や <video> などの中身を、コンテナーにどのようにはめ込むかを設定
+    cover:アスペクト比を維持したまま、要素のコンテンツボックス全体を埋めるように拡大縮小
+    height:画像の高さ  */
+  .top img {
+    object-fit: cover;
+    height: 640px;
+  }
+  
+  /* 要素をページの中で自由に移動(モーダルウィンドウやポップアップメニューなどのオーバーレイを作成する際に特に便利) */
+  .overlay {
+    position: absolute;
+    color: rgb(53, 53, 53);
+  }
+  
+  .title {
+    font-size: 5rem;
+  }
+  
+  .subtitle {
+    font-size: 2rem;
+  }
+
+  /* 要素の内容が多すぎてブロック整形コンテキストに収まらない場合の望ましい動作を両方向について設定
+     overflow:hidden=内容は、必要に応じてパディングボックスに合わせて切り取られます。
+     offsetLeft のようなプロパティの値を設定する方法などで) スクロールすることができます。
+     relative=指定された位置に移動すると、他の要素には影響を与えない  */
+  .work-thumbnail {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .work-img {
+    object-fit: cover;
+    height: 240px;
+  }
+
+  /* 作品のタイトルに関するスタイルです。背景色を設定し、マウスホバー時に表示が変わるようにしています。
+     font-weight=フォントの太さが親要素よりも相対的に1つ太くなる */
+  .work-title {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    opacity: 0;
+    background-color: rgb(45, 45, 45);
+    transform: translateY(70px);
+    transition: all 0.2s ease-in-out;
+  }
+
+  /* .work-thumbnail:hover .work-titleは、.work-thumbnail要素にマウスが乗ったときに、
+     その子要素である.work-title要素のスタイルを指定する */
+  .work-thumbnail:hover .work-title {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+
+  .link-color {
+    color: #0088ff;
+  }
+
+  /* テキストの下線の装飾
+     text-decoration:=なし */
+  .link-color:hover {
+    color: #0088ff;
+    text-decoration: none;
+  }
+
+  /* プロフィール用のcss */
+  .avatar img {
+    max-width: 150px;
+    max-height: 150px;
+  }
+  
+  .icon {
+    padding: 10px 8px;
+  }
+
+  /* word-wrap:normal!important;=テキストは単語の途中での折り返しは行わず、単語の境界でのみ折り返されます。 */
+  .star-rating {
+    position: relative;
+    font-size: 30px;
+    word-wrap: normal!important;
+  }
+
+  .star-rating-front {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    color: #ee6c4d;
+  }
+
+  .star-rating-back {
+    color: #ccc;
+  }
+
+  .contact {
+    max-width: 500px;
+  }
+
+  /* フォーカスされたときにスタイルを適用する
+     border-color:囲う枠の色
+     box-shadow:要素の背景に同ボックスの影をつけるか */
+  .form-control:focus {
+    border-color: #ee6c4d;
+    box-shadow: none;
+  }
+
+  .card {
+    border: none;
+  }

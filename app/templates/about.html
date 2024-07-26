@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-4">Profile</h3>
+<div class="mb-5">
+    <div class="row">
+        <div class="col-md-8"> <!--　画面の幅がミディアムサイズ以上の場合に、他の要素と比べて8割の幅を占める　-->
+            <p>{{ profile_data.introduction | linebreaksbr }}</p>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center px-5 py-4"> <!-- テキストを中央揃えにし、周囲には水平方向に5つ分、垂直方向に4つ分のパディング -->
+                <div class="avatar mb-3">
+                    <img 
+                         src="{{ profile_data.subimage.url }}" 
+                         alt="" 
+                         class="card-img-top rounded-circle">
+                </div>
+                <h5 class="font-weight-bolder">{{ profile_data.name }}</h5>
+                <p class="mb-3 small text-center">
+                    {{ profile_data.job | linebreaksbr }}
+                </p>
+                <div class="d-flex justify-content-around">
+                    {% if profile_data.github %}
+                        <a href="{{ profile_data.github }}" 
+                           target="_blank">
+                           <i class="fa-brands fa-square-github fa-3x icon" style="color:rgb(152, 30, 152);"></i>
+                           <div class="col-mb-4">GitHub</div>
+                        </a>
+                    {% endif %}
+
+                    {% if profile_data.x %}
+                        <a href="{{ profile_data.x }}" 
+                           target="_blank">
+                           <i class="fa-brands fa-square-x-twitter fa-3x icon" style="color:black;"></i>
+                        </a>
+                    {% endif %}
+
+                    {% if profile_data.linkedin %}
+                    <a href="{{ profile_data.linkedin }}" 
+                       target="_blank">
+                       <i class="fab fa-linkedin fa-3x icon"></i>
+                       <div class="col-mb-4">Qiita</div>
+                     </a>
+                     
+                    {% endif %}
+
+                    {% if profile_data.facebook %}
+                    <a href="{{ profile_data.facebook }}" 
+                    target="_blank">
+                    <i class="fab fa-facebook-square fa-3x icon"></i>
+                    </a>
+                    {% endif %}
+
+                    {% if profile_data.instagram %}
+                        <a href="{{ profile_data.instagram }}" 
+                           target="_blank">
+                           <i class="fab fa-instagram-square fa-3x icon" style="color:rgb(239, 21, 116);"></i>
+                           <div class="col-mb-4">Instagram</div>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if experience_data %}
+<h3 class="mb-4">Experience</h3>
+<div class="mb-5">
+    {% for experience in experience_data %}
+        <!-- 
+            d-flex:flexレイアウトを有効に
+            justify-content-between:要素をコンテナ内で均等に配置する -->
+        <div class="d-flex justify-content-between">
+            <h5>
+                {{ experience.occupation }}<span class="small text-secondary">
+                  - {{ experience.company }}</span> <!-- spanタグはinline要素(横の塊)でcssで細かく装飾 -->
+            </h5> 
+            <p class="mb-1">{{ experience.period }}</p>
+        </div> 
+        <p class="mb-1">{{ experience.description | linebreaksbr }}</p>
+        <!-- <p>{{ experience.place }}</p> -->
+        <hr>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if education_data %}
+<h3 class="mb-4">Education</h3>
+<div class="mb-5">
+    {% for education in education_data %}
+        <div class="d-flex justify-content-between">
+            <h5>
+                {{ education.course }}<span class="small text-secondary">
+                  - {{ education.school }}</span>
+            </h5> 
+            <p class="mb-1">{{ education.period }}</p>
+        </div> 
+        <p>{{ education.place }}</p>
+        <hr>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if software_data %}
+<h3 class="mb-4">Software Skills</h3>
+<div class="mb-5">
+    <div class="row">
+        {% for software in software_data %}
+            <div class="col-6 col-md-3"> <!-- スマホ以上、中程度のデバイスに対応するカラム -->
+                <h5 class="mb-0"> <!-- マージン0 -->
+                    {{ software.name }} 
+                    <span class="small text-secondary"> <!-- テキストを小さくし、セカンダリカラー(灰色)で強調する -->
+                        - {{ software.level }}
+                    </span>
+                </h5>
+                <div class="d-flex flex-row"> <!-- フレックスボックスを使用して子要素を横方向に並べる -->
+                    <div class="star-rating"> <!-- 星評価を表示するためのカスタムクラス -->
+                        <!-- 星評価のフロントエンドを担当する要素で、実際の星評価のパーセンテージに応じて幅が変わる-->
+                        <div class="star-rating-front" 
+                             style="width: {{ software.percentage }}%">
+                             ★★★★★
+                        </div> <!-- ビューから貰ったデータをcssに定義可能↑(javascriptも)　-->
+                        <div class="star-rating-back">★★★★★</div><!-- style=背景として星評価を示す -->
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if technical_data %}
+<h3 class="mb-4">Technical Skills</h3>
+<div class="mb-5">
+    <div class="row">
+        {% for technical in technical_data %}
+            <div class="col-6 col-md-3">
+                <h5 class="mb-0">
+                    {{ technical.name }} 
+                    <span class="small text-secondary">
+                        - {{ technical.level }}
+                    </span>
+                </h5>
+                <div class="d-flex flex-row">
+                    <div class="star-rating">
+                        <div class="star-rating-front" 
+                             style="width: {{ technical.percentage }}%">
+                             ★★★★★
+                        </div> <!-- ビューから貰ったデータをcssに定義可能(javascriptも)　-->
+                        <div class="star-rating-back">★★★★★</div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

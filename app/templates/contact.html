@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<!-- 
+"card": 要素をカードのようなスタイルにします。
+"text-center": テキストを中央寄せします。
+"contact": おそらく、この要素がコンタクト情報を含んでいることを示すためのクラスです。
+"mx-auto": 要素を水平方向に自動的に中央に配置します。
+"rounded": 要素の角を丸めます。 
+-->
+<div class="card text-center contact mx-auto rounded">
+    <div class="card-body"> <!-- カード内のコンテンツが適切にスタイリングされ、適切な余白が設定 -->
+        <h2 class="mb-4">Contact Me</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <!-- widget_tweaksでCSSクラスを追加, placeholderは入力欄に薄く記入例があるもの -->
+                {% render_field form.name class='form-control' placeholder='名前' %}
+            </div>
+            <div class="mb-3">
+                {% render_field form.email class='form-control' placeholder='メールアドレス' %}
+            </div>
+            <div class="mb-3">
+                {% render_field form.message class='form-control' placeholder='メッセージ' %}
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-warning" type="submit">
+                    <i class="fa-solid fa-paper-plane"></i>送信する
+                </button>
+            </div>
+        </form>
+    </div> 
+</div>
+
+{% endblock %}

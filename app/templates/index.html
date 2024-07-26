@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!--
+    card: カードは情報やコンテンツを表示するために使用
+    top: カードの配置やスタイルを制御
+    d-flex: 要素内の子要素をフレックスボックスとして配置
+    flex-column: フレックスコンテナ内の子要素を縦方向に配置
+    justify-content-end: カードの中の要素を下部に配置
+    
+    ※ つまり、フレックスボックスを使用してカードを縦方向に配置し、
+      カード内の要素を下部に配置し、下方向に余白を追加するために使用
+-->
+<div class="card top d-flex flex-column justify-content-end mb-5">
+  <img src="{{ profile_data.topimage.url }}" alt="" /> <!-- トップ画像を表示 -->
+  <div class="overlay p-5">                 <!-- 背景画像の上に白いテキストを表示し、テキストの周りに大きな余白を持つオーバーレイを作成 -->
+    <h1 class="title">{{ profile_data.title }}</h1>    <!-- タイトル -->
+    <!-- <h5 class="subtitle">{{ profile_data.subtitle }}</h5>  サブタイトル -->
+  </div>
+</div>
+
+<h1 data-v-47b85b88="" class=" text-center mb-4 mt-15 title01">作品、サービス一覧</h1>
+<hr>
+
+<div class="row mb-5">
+    {% for work in work_data %}
+        <div class="col-6 col-md-3 mb-3">
+            <div class="card work-thumbnail">
+                {% if work.thumbnail %}
+                    <img src="{{ work.thumbnail.url }}" 
+                         alt="" 
+                         class="work-img">
+                {% else %}
+                    <img src="{{ work.image.url }}" 
+                         alt="" 
+                         class="work-img">
+                {% endif %}
+                <div class="work-title text-center">
+                    <p class="mb-0">
+                        {{ work.title }}
+                    </p>
+                </div>
+                <a href="{% url 'detail' work.id %}" 
+                   class="stretched-link work">
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
